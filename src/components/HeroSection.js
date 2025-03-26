@@ -86,6 +86,7 @@ const Description = styled(motion.p)`
   @media (max-width: 768px) {
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
+    margin: 0 auto 1.5rem;
   }
 `;
 
@@ -141,8 +142,8 @@ const Illustration = styled(motion.div)`
   
   @media (max-width: 768px) {
     width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+    max-width: 250px;
+    margin: 0 auto 2rem;
     order: -1;
   }
   
@@ -151,6 +152,10 @@ const Illustration = styled(motion.div)`
     height: auto;
     max-width: 500px;
     filter: drop-shadow(0 0 20px rgba(177, 157, 216, 0.3));
+    
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
   }
 `;
 
@@ -194,7 +199,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <img src="/consequence.jpeg" alt="Consequence Logo" />
+          <img src="/images/consequence.jpeg" alt="Consequence Logo" />
         </Illustration>
       </Content>
     </HeroContainer>
