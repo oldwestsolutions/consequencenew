@@ -1,26 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const HeroContainer = styled.section`
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 6rem 2rem 4rem;
   position: relative;
+  overflow: hidden;
   background: var(--gradient-primary);
-  overflow: hidden;
-  padding-top: 80px;
-`;
-
-const StarryBackground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%);
-  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 5rem 1rem 3rem;
+    text-align: center;
+  }
   
   &:before {
     content: '';
@@ -29,50 +25,7 @@ const StarryBackground = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-      radial-gradient(circle at 30% 20%, rgba(177, 157, 216, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 70% 80%, rgba(138, 124, 184, 0.15) 0%, transparent 50%);
-  }
-`;
-
-const Star = styled(motion.div)`
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-`;
-
-const Content = styled.div`
-  text-align: left;
-  z-index: 1;
-  padding: 2rem;
-  max-width: 1200px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: minmax(500px, 2fr) minmax(300px, 1fr);
-  gap: 4rem;
-  align-items: center;
-
-  @media (max-width: 968px) {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 2rem;
-  }
-`;
-
-const LogoContainer = styled(motion.div)`
-  width: 400px;
-  height: 400px;
-  position: relative;
-  justify-self: center;
-  order: 2;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    background: radial-gradient(circle at 20% 20%, rgba(177, 157, 216, 0.1) 0%, transparent 50%);
   }
   
   &:after {
@@ -82,77 +35,76 @@ const LogoContainer = styled(motion.div)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at center, rgba(177, 157, 216, 0.2) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  
-  @media (max-width: 968px) {
-    width: 300px;
-    height: 300px;
-    order: 1;
-    margin-bottom: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    width: 250px;
-    height: 250px;
+    background: radial-gradient(circle at 80% 80%, rgba(177, 157, 216, 0.1) 0%, transparent 50%);
   }
 `;
 
-const TextContent = styled(motion.div)`
+const Content = styled.div`
+  max-width: 1200px;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  order: 1;
-  justify-content: center;
-  max-width: 600px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  z-index: 1;
   
-  @media (max-width: 968px) {
-    order: 2;
-    text-align: center;
-    align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
+
+const TextContent = styled.div`
+  flex: 1;
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
   }
 `;
 
 const Title = styled(motion.h1)`
   font-size: 4rem;
   font-weight: 700;
+  margin-bottom: 1.5rem;
   color: var(--color-text-primary);
-  text-shadow: var(--shadow-neon);
-  margin: 0;
+  text-shadow: 0 0 30px rgba(177, 157, 216, 0.3);
   line-height: 1.2;
   
-  @media (max-width: 968px) {
-    font-size: 3rem;
-  }
-
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     font-size: 2.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
-const Subtitle = styled(motion.p)`
-  font-size: 1.5rem;
+const Description = styled(motion.p)`
+  font-size: 1.25rem;
   color: var(--color-text-secondary);
+  margin-bottom: 2rem;
   line-height: 1.6;
-  margin: 0;
+  max-width: 600px;
   
-  @media (max-width: 968px) {
-    font-size: 1.2rem;
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
   }
 `;
 
 const CTAButton = styled(motion.button)`
   padding: 1rem 2rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   background: var(--gradient-accent);
   border: none;
-  border-radius: 30px;
+  border-radius: 25px;
   color: var(--color-text-primary);
   cursor: pointer;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  font-weight: 600;
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+  }
   
   &:before {
     content: '';
@@ -172,7 +124,7 @@ const CTAButton = styled(motion.button)`
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-strong);
+    box-shadow: var(--shadow-neon);
   }
   
   &:hover:before {
@@ -180,88 +132,69 @@ const CTAButton = styled(motion.button)`
   }
 `;
 
+const Illustration = styled(motion.div)`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    filter: drop-shadow(0 0 20px rgba(177, 157, 216, 0.3));
+  }
+`;
+
 const HeroSection = () => {
-  const stars = Array.from({ length: 100 }).map((_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2,
-    duration: Math.random() * 3 + 2,
-  }));
+  const navigate = useNavigate();
 
   return (
-    <HeroContainer>
-      <StarryBackground>
-        {stars.map((star) => (
-          <Star
-            key={star.id}
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: star.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            style={{
-              left: `${star.x}%`,
-              top: `${star.y}%`,
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-            }}
-          />
-        ))}
-      </StarryBackground>
-      
+    <HeroContainer id="hero">
       <Content>
-        <TextContent
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Title>
-            Seamless MIDI Integration in Your Browser
+        <TextContent>
+          <Title
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Connect Your Music
+            <br />
+            With WebMIDI
           </Title>
-          
-          <Subtitle>
-            Connect, Create, and Control MIDI Instruments Directly from Consequence
-          </Subtitle>
-          
+          <Description
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Experience seamless MIDI integration directly in your browser.
+            Connect your devices, control your DAW, and create music without barriers.
+          </Description>
           <CTAButton
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            onClick={() => navigate('/studio')}
           >
-            Get Started
+            Try Studio Now
           </CTAButton>
         </TextContent>
-
-        <LogoContainer
+        <Illustration
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ 
-            duration: 1,
-            ease: "easeOut"
-          }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <motion.img
-            src="/images/consequence.jpeg"
-            alt="Consequence"
-            animate={{ 
-              filter: [
-                "drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))",
-                "drop-shadow(0 0 30px rgba(177, 157, 216, 0.5))",
-                "drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))"
-              ]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </LogoContainer>
+          <img src="/consequence.jpeg" alt="MIDI Integration Illustration" />
+        </Illustration>
       </Content>
     </HeroContainer>
   );
