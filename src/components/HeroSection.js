@@ -3,6 +3,33 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
+const StarBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+`;
+
+const Star = styled.div`
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: ${props => props.opacity};
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+  top: ${props => props.top}%;
+  left: ${props => props.left}%;
+  animation: twinkle ${props => props.duration}s infinite ease-in-out;
+
+  @keyframes twinkle {
+    0%, 100% { opacity: ${props => props.opacity}; }
+    50% { opacity: ${props => props.opacity * 0.3}; }
+  }
+`;
+
 const HeroContainer = styled.section`
   min-height: 100vh;
   display: flex;
@@ -160,9 +187,30 @@ const Illustration = styled(motion.div)`
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  
+  // Generate random stars
+  const stars = Array.from({ length: 50 }, () => ({
+    size: Math.random() * 3 + 1,
+    top: Math.random() * 100,
+    left: Math.random() * 100,
+    opacity: Math.random() * 0.5 + 0.2,
+    duration: Math.random() * 3 + 2
+  }));
 
   return (
     <HeroContainer id="hero">
+      <StarBackground>
+        {stars.map((star, index) => (
+          <Star
+            key={index}
+            size={star.size}
+            top={star.top}
+            left={star.left}
+            opacity={star.opacity}
+            duration={star.duration}
+          />
+        ))}
+      </StarBackground>
       <Content>
         <TextContent>
           <Title
