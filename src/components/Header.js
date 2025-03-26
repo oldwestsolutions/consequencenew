@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
@@ -43,27 +43,7 @@ const Nav = styled.nav`
   gap: 2rem;
   
   @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const MobileNav = styled(motion.nav)`
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(26, 16, 40, 0.98);
-  backdrop-filter: blur(20px);
-  padding: 5rem 2rem 2rem;
-  z-index: 1000;
-  
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    gap: 1rem;
   }
 `;
 
@@ -76,8 +56,8 @@ const NavLink = styled(motion.a)`
   padding: 0.5rem 0;
   
   @media (max-width: 768px) {
-    font-size: 1.5rem;
-    padding: 1rem;
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
   }
   
   &:after {
@@ -148,51 +128,8 @@ const LoginButton = styled(motion.button)`
   }
 `;
 
-const MenuButton = styled(motion.button)`
-  display: none;
-  background: none;
-  border: none;
-  color: var(--color-text-primary);
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 1001;
-  
-  @media (max-width: 768px) {
-    display: block;
-  }
-  
-  div {
-    width: 24px;
-    height: 2px;
-    background: currentColor;
-    margin: 6px 0;
-    transition: 0.3s;
-    
-    &:first-child {
-      transform: ${props => props.isOpen ? 'rotate(45deg) translate(7px, 7px)' : 'none'};
-    }
-    
-    &:nth-child(2) {
-      opacity: ${props => props.isOpen ? '0' : '1'};
-    }
-    
-    &:last-child {
-      transform: ${props => props.isOpen ? 'rotate(-45deg) translate(7px, -7px)' : 'none'};
-    }
-  }
-`;
-
 const Header = () => {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
 
   return (
     <HeaderContainer>
@@ -200,7 +137,6 @@ const Header = () => {
         to="/"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={closeMenu}
       >
         Consequence
       </Logo>
@@ -229,62 +165,13 @@ const Header = () => {
         </NavLink>
       </Nav>
       
-      <MenuButton
-        onClick={toggleMenu}
-        isOpen={isMenuOpen}
-        aria-label="Toggle menu"
-      >
-        <div />
-        <div />
-        <div />
-      </MenuButton>
-      
       <LoginButton
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => {
-          navigate('/login');
-          closeMenu();
-        }}
+        onClick={() => navigate('/login')}
       >
         Login
       </LoginButton>
-
-      <AnimatePresence>
-        {isMenuOpen && (
-          <MobileNav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
-            <NavLink
-              href="#features"
-              onClick={closeMenu}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Features
-            </NavLink>
-            <NavLink
-              href="#about"
-              onClick={closeMenu}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              About
-            </NavLink>
-            <NavLink
-              href="#contact"
-              onClick={closeMenu}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Contact
-            </NavLink>
-          </MobileNav>
-        )}
-      </AnimatePresence>
     </HeaderContainer>
   );
 };

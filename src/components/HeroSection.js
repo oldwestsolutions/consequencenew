@@ -49,7 +49,7 @@ const Content = styled.div`
   z-index: 1;
   
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 2rem;
   }
 `;
@@ -141,8 +141,9 @@ const Illustration = styled(motion.div)`
   
   @media (max-width: 768px) {
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     margin: 0 auto;
+    order: -1;
   }
   
   img {
