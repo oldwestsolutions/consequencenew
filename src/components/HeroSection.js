@@ -212,6 +212,13 @@ const HeroSection = () => {
         ))}
       </StarBackground>
       <Content>
+        <Illustration
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <img src="/images/consequence.jpeg" alt="Consequence Logo" />
+        </Illustration>
         <TextContent>
           <Title
             initial={{ opacity: 0, y: 20 }}
@@ -241,13 +248,6 @@ const HeroSection = () => {
             Try Studio Now
           </CTAButton>
         </TextContent>
-        <Illustration
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <img src="/images/consequence.jpeg" alt="Consequence Logo" />
-        </Illustration>
       </Content>
     </HeroContainer>
   );
