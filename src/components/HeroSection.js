@@ -194,7 +194,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <img src="/consequence.jpeg" alt="MIDI Integration Illustration" />
+          <img src="/consequence.jpeg" alt="Consequence Logo" />
         </Illustration>
       </Content>
     </HeroContainer>

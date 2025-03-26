@@ -37,53 +37,6 @@ const Logo = styled(motion(Link))`
   }
 `;
 
-const Nav = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  
-  @media (max-width: 768px) {
-    gap: 1rem;
-  }
-`;
-
-const NavLink = styled(motion.a)`
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  position: relative;
-  padding: 0.5rem 0;
-  
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    padding: 0.3rem 0;
-  }
-  
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--gradient-accent);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
-  }
-  
-  &:hover {
-    color: var(--color-text-primary);
-    text-shadow: 0 0 10px rgba(177, 157, 216, 0.3);
-  }
-  
-  &:hover:after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-`;
-
 const LoginButton = styled(motion.button)`
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
@@ -96,9 +49,10 @@ const LoginButton = styled(motion.button)`
   position: relative;
   overflow: hidden;
   z-index: 1001;
+  white-space: nowrap;
   
   @media (max-width: 768px) {
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
   
@@ -140,30 +94,6 @@ const Header = () => {
       >
         Consequence
       </Logo>
-      
-      <Nav>
-        <NavLink
-          href="#features"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Features
-        </NavLink>
-        <NavLink
-          href="#about"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          About
-        </NavLink>
-        <NavLink
-          href="#contact"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Contact
-        </NavLink>
-      </Nav>
       
       <LoginButton
         whileHover={{ scale: 1.05 }}
