@@ -1,0 +1,136 @@
+.piano-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+.piano-controls {
+  display: flex;
+  padding: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(20, 12, 30, 0.5);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.control-button, .mode-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: rgba(106, 27, 154, 0.4);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 0.25rem;
+}
+
+.control-button:hover, .mode-button:hover {
+  background: rgba(106, 27, 154, 0.7);
+}
+
+.mode-button.active {
+  background: rgba(106, 27, 154, 0.9);
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+}
+
+.octave-display {
+  color: white;
+  font-size: 0.9rem;
+  margin: 0 0.5rem;
+}
+
+.status-text {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.piano-keyboard {
+  position: relative;
+  flex: 1;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  overflow: hidden;
+  background: #1a0d2c;
+}
+
+/* White keys container */
+.white-keys {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* White keys */
+.white-key {
+  position: relative;
+  flex: 1;
+  margin: 0 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, #f5f5f5, #ddd);
+  border-radius: 0 0 3px 3px;
+  transition: all 0.05s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.white-key.active {
+  background: linear-gradient(to bottom, #b19dd8, #8a2be2);
+  box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px);
+}
+
+/* Black keys container - overlay on top of white keys */
+.black-keys {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 65%;
+  pointer-events: none;
+}
+
+/* Black keys */
+.black-key {
+  position: absolute;
+  width: 8%;
+  height: 100%;
+  background: linear-gradient(to bottom, #333, #111);
+  z-index: 2;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  transition: all 0.05s ease;
+  pointer-events: all;
+}
+
+.black-key.active {
+  background: linear-gradient(to bottom, #6a1b9a, #4a148c);
+  box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.5);
+  transform: translateY(2px);
+}
+
+/* Key labels */
+.key-label {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  user-select: none;
+}
+
+.white-key .key-label {
+  color: #333;
+}
+
+.black-key .key-label {
+  color: #ddd;
+  font-size: 10px;
+} 

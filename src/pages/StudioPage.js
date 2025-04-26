@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
+import PianoKeyboard from '../components/PianoKeyboard';
+import ChatbotUI from '../components/ChatbotUI';
+import DrumMachine from '../components/DrumMachine';
+import TrackArrangement from '../components/TrackArrangement';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -131,25 +135,25 @@ const StudioPage = () => {
   const navigate = useNavigate();
   const [layouts, setLayouts] = useState({
     lg: [
-      { i: 'mixer', x: 0, y: 0, w: 6, h: 4 },
+      { i: 'track-arrangement', x: 0, y: 0, w: 6, h: 4 },
       { i: 'piano-roll', x: 6, y: 0, w: 6, h: 4 },
-      { i: 'effects', x: 0, y: 4, w: 4, h: 4 },
-      { i: 'midi-monitor', x: 4, y: 4, w: 4, h: 4 },
-      { i: 'settings', x: 8, y: 4, w: 4, h: 4 },
+      { i: 'drum-machine', x: 0, y: 4, w: 4, h: 4 },
+      { i: 'piano-keyboard', x: 4, y: 4, w: 4, h: 4 },
+      { i: 'chatbot', x: 8, y: 4, w: 4, h: 4 },
     ],
     md: [
-      { i: 'mixer', x: 0, y: 0, w: 6, h: 4 },
+      { i: 'track-arrangement', x: 0, y: 0, w: 6, h: 4 },
       { i: 'piano-roll', x: 6, y: 0, w: 6, h: 4 },
-      { i: 'effects', x: 0, y: 4, w: 4, h: 4 },
-      { i: 'midi-monitor', x: 4, y: 4, w: 4, h: 4 },
-      { i: 'settings', x: 8, y: 4, w: 4, h: 4 },
+      { i: 'drum-machine', x: 0, y: 4, w: 4, h: 4 },
+      { i: 'piano-keyboard', x: 4, y: 4, w: 4, h: 4 },
+      { i: 'chatbot', x: 8, y: 4, w: 4, h: 4 },
     ],
     sm: [
-      { i: 'mixer', x: 0, y: 0, w: 6, h: 4 },
+      { i: 'track-arrangement', x: 0, y: 0, w: 6, h: 4 },
       { i: 'piano-roll', x: 0, y: 4, w: 6, h: 4 },
-      { i: 'effects', x: 0, y: 8, w: 6, h: 4 },
-      { i: 'midi-monitor', x: 0, y: 12, w: 6, h: 4 },
-      { i: 'settings', x: 0, y: 16, w: 6, h: 4 },
+      { i: 'drum-machine', x: 0, y: 8, w: 6, h: 4 },
+      { i: 'piano-keyboard', x: 0, y: 12, w: 6, h: 4 },
+      { i: 'chatbot', x: 0, y: 16, w: 6, h: 4 },
     ],
   });
 
@@ -190,10 +194,10 @@ const StudioPage = () => {
           draggableHandle=".drag-handle"
           onLayoutChange={handleLayoutChange}
         >
-          <div key="mixer">
+          <div key="track-arrangement">
             <GridItemContent>
-              <h3 className="drag-handle">Mixer</h3>
-              <div>Channel controls and faders will go here</div>
+              <h3 className="drag-handle">Track Arrangement</h3>
+              <TrackArrangement />
             </GridItemContent>
           </div>
           <div key="piano-roll">
@@ -202,22 +206,22 @@ const StudioPage = () => {
               <div>MIDI note editor will go here</div>
             </GridItemContent>
           </div>
-          <div key="effects">
+          <div key="drum-machine">
             <GridItemContent>
-              <h3 className="drag-handle">Effects</h3>
-              <div>Audio effects chain will go here</div>
+              <h3 className="drag-handle">Drum Machine</h3>
+              <DrumMachine />
             </GridItemContent>
           </div>
-          <div key="midi-monitor">
+          <div key="piano-keyboard">
             <GridItemContent>
-              <h3 className="drag-handle">MIDI Monitor</h3>
-              <div>Real-time MIDI data display will go here</div>
+              <h3 className="drag-handle">Piano Keyboard</h3>
+              <PianoKeyboard />
             </GridItemContent>
           </div>
-          <div key="settings">
+          <div key="chatbot">
             <GridItemContent>
-              <h3 className="drag-handle">Settings</h3>
-              <div>Configuration options will go here</div>
+              <h3 className="drag-handle">AI Assistant</h3>
+              <ChatbotUI />
             </GridItemContent>
           </div>
         </ResponsiveGridLayout>
