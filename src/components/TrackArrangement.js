@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import * as Tone from 'tone';
 import './TrackArrangement.css';
+import projectService from '../services/projectService';
 
-const TrackArrangement = () => {
+const TrackArrangement = ({ projectId }) => {
   const [tracks, setTracks] = useState([
     { id: 1, name: 'Drums', color: '#8a2be2', mute: false, solo: false, clips: [
       { id: 1, start: 0, length: 16, name: 'Intro' },
@@ -21,6 +22,9 @@ const TrackArrangement = () => {
     ]}
   ]);
   
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
   const [selectedTrack, setSelectedTrack] = useState(null);
   const [selectedClip, setSelectedClip] = useState(null);
   const [zoom, setZoom] = useState(1);
@@ -36,6 +40,53 @@ const TrackArrangement = () => {
   const totalBars = 16;
   const beatsPerBar = 4;
   const totalBeats = totalBars * beatsPerBar;
+  
+  // Load project data from Firestore if projectId is provided
+  useEffect(() => {
+    if (projectId) {
+      loadProjectData();
+    }
+  }, [projectId]);
+  
+  // Load project data from Firestore
+  const loadProjectData = async () => {
+    if (!projectId) return;
+    
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const projectArrangement = await projectService.loadProjectArrangement(projectId);
+      if (projectArrangement && projectArrangement.length > 0) {
+        setTracks(projectArrangement);
+      }
+    } catch (err) {
+      console.error('Error loading project data:', err);
+      setError('Failed to load project data. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // Save project data to Firestore
+  const saveProjectData = async () => {
+    if (!projectId) {
+      setError('No project ID provided. Cannot save arrangement.');
+      return;
+    }
+    
+    setSaving(true);
+    setError(null);
+    
+    try {
+      await projectService.saveProjectArrangement(projectId, tracks);
+    } catch (err) {
+      console.error('Error saving project data:', err);
+      setError('Failed to save project data. Please try again.');
+    } finally {
+      setSaving(false);
+    }
+  };
   
   // Timeline markers for bars and beats
   const timelineMarkers = [];
@@ -105,7 +156,7 @@ const TrackArrangement = () => {
   // Track management
   const addTrack = () => {
     const newTrack = {
-      id: tracks.length + 1,
+      id: Date.now(),
       name: `Track ${tracks.length + 1}`,
       color: generateRandomColor(),
       mute: false,
@@ -219,6 +270,14 @@ const TrackArrangement = () => {
     return `${bars + 1}.${remainingBeats + 1}`;
   };
   
+  // Handle status message
+  const getStatusMessage = () => {
+    if (loading) return 'Loading project...';
+    if (saving) return 'Saving project...';
+    if (error) return error;
+    return '';
+  };
+  
   return (
     <div className="arrangement-container">
       <div className="arrangement-toolbar">
@@ -241,8 +300,27 @@ const TrackArrangement = () => {
           <button className="zoom-button" onClick={handleZoomIn}>+</button>
         </div>
         
-        <button className="add-track-button" onClick={addTrack}>Add Track</button>
+        <div className="action-buttons">
+          <button className="add-track-button" onClick={addTrack}>
+            Add Track
+          </button>
+          {projectId && (
+            <button 
+              className="save-button" 
+              onClick={saveProjectData}
+              disabled={saving}
+            >
+              {saving ? 'Saving...' : 'Save'}
+            </button>
+          )}
+        </div>
       </div>
+      
+      {getStatusMessage() && (
+        <div className={`status-message ${error ? 'error' : ''}`}>
+          {getStatusMessage()}
+        </div>
+      )}
       
       <div className="arrangement-content">
         <div className="tracks-header">

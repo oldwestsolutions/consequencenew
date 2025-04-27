@@ -85,18 +85,54 @@
   background: rgba(106, 27, 154, 0.7);
 }
 
-.add-track-button {
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-track-button, .save-button {
   padding: 0.25rem 0.75rem;
   border: none;
   border-radius: 4px;
-  background: rgba(106, 27, 154, 0.4);
   color: white;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: 0.8rem;
+}
+
+.add-track-button {
+  background: rgba(106, 27, 154, 0.4);
 }
 
 .add-track-button:hover {
   background: rgba(106, 27, 154, 0.7);
+}
+
+.save-button {
+  background: rgba(76, 175, 80, 0.6);
+}
+
+.save-button:hover {
+  background: rgba(76, 175, 80, 0.8);
+}
+
+.save-button:disabled {
+  background: rgba(76, 175, 80, 0.3);
+  cursor: not-allowed;
+}
+
+/* Status Message */
+.status-message {
+  padding: 0.3rem 0.5rem;
+  background: rgba(76, 175, 80, 0.2);
+  border-left: 3px solid rgba(76, 175, 80, 0.8);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.status-message.error {
+  background: rgba(244, 67, 54, 0.2);
+  border-left: 3px solid rgba(244, 67, 54, 0.8);
 }
 
 /* Content Area */
